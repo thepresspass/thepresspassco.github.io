@@ -1,0 +1,107 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import EmailCapture from './EmailCapture';
+
+const HERO_IMG = "https://media.base44.com/images/public/6a1ddd138b78b98189ac6e3a/6a913ed64_generated_image.png";
+
+export default function HeroSection() {
+  return (
+    <section id="hero" className="snap-section min-h-screen relative flex flex-col">
+      {/* Signal line top */}
+      <div className="w-full h-px bg-border/30" />
+
+      <div className="flex-1 flex flex-col lg:flex-row">
+        {/* Left — Title + Image */}
+        <div className="relative lg:w-[55%] flex flex-col justify-end p-6 md:p-12 lg:p-16 min-h-[50vh] lg:min-h-0">
+          {/* Background image */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src={HERO_IMG}
+              alt="Laptop in press box overlooking soccer stadium"
+              className="w-full h-full object-cover opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
+          </div>
+
+          {/* Metadata */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="relative z-10"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
+              <span className="font-mono text-[11px] tracking-[0.2em] text-primary uppercase">
+                Pre-Registration Open
+              </span>
+            </div>
+
+            <div>
+              <h1 className="font-display uppercase leading-[0.82] tracking-tight text-foreground">
+                <span className="block text-[clamp(1rem,4vw,2.5rem)] tracking-[0.2em] mb-1">THE</span>
+                <span className="block text-[clamp(3.5rem,13vw,10rem)] leading-[0.8]">PRESS</span>
+                <span className="block text-[clamp(3.5rem,13vw,10rem)] leading-[0.8]">PASS</span>
+              </h1>
+              <div className="w-full max-w-xs h-px bg-foreground/20 my-6" />
+              <p className="font-body text-sm md:text-lg text-muted-foreground/70 leading-relaxed tracking-wide max-w-sm">
+                How To Get A Job In The Sports Media Industry
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Signal line vertical */}
+        <div className="hidden lg:block w-px bg-border/30" />
+
+        {/* Right — Registration Card */}
+        <div className="lg:w-[45%] flex items-center justify-center p-6 md:p-12 lg:p-16">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="w-full max-w-md"
+          >
+            {/* Card header */}
+            <div className="flex items-center justify-between mb-8">
+              <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/50">
+                REG—001
+              </span>
+              <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/50">
+                STATUS: OPEN
+              </span>
+            </div>
+
+            <div className="border border-border/40 p-8 md:p-10">
+              <h2 className="font-heading font-bold text-xl md:text-2xl uppercase tracking-wide text-foreground mb-2">
+                Join The Roster
+              </h2>
+              <p className="font-body text-sm text-muted-foreground leading-relaxed mb-8">
+                Be the first to know when the book drops. 
+                Early registrants get exclusive access to pre-launch content and insider chapters.
+              </p>
+
+              <EmailCapture source="hero" />
+            </div>
+
+            {/* Card footer stats */}
+            <div className="flex items-center justify-between mt-6 pt-6 border-t border-border/20">
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/40">FORMAT</p>
+                <p className="font-mono text-[12px] tracking-wider text-muted-foreground mt-1">DIGITAL + PRINT</p>
+              </div>
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/40">CHAPTERS</p>
+                <p className="font-mono text-[12px] tracking-wider text-muted-foreground mt-1">12 MODULES</p>
+              </div>
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/40">LAUNCH</p>
+                <p className="font-mono text-[12px] tracking-wider text-primary mt-1">2026</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

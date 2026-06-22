@@ -1,0 +1,55 @@
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import EmailCapture from './EmailCapture';
+
+export default function FinalWhistle() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section
+      id="join"
+      ref={ref}
+      className="snap-section min-h-screen flex items-center justify-center bg-primary relative overflow-hidden"
+    >
+      {/* Grid lines overlay */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--primary-foreground)) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--primary-foreground)) 1px, transparent 1px)
+          `,
+          backgroundSize: '80px 80px',
+        }} />
+      </div>
+
+      <div className="relative z-10 text-center px-6 md:px-12 max-w-3xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="w-3 h-3 rounded-full bg-background animate-glow-pulse" />
+            <span className="font-mono text-[11px] tracking-[0.2em] text-background/60 uppercase">
+              Final Whistle
+            </span>
+          </div>
+
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl uppercase tracking-tight text-background leading-[0.85] mb-6">
+            Get The<br />Playbook
+          </h2>
+
+          <p className="font-body text-base md:text-lg text-background/70 leading-relaxed mb-12 max-w-lg mx-auto">
+            Don't wait for the transfer window to close. 
+            Register now and be the first to access the definitive guide to sports media careers.
+          </p>
+
+          <div className="flex justify-center">
+            <EmailCapture source="footer" variant="orange" />
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

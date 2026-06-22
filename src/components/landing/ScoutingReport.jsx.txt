@@ -1,0 +1,130 @@
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+
+const IMAGES = {
+  tunnel: "https://media.base44.com/images/public/6a1ddd138b78b98189ac6e3a/50dd09cb9_generated_de7372fe.png",
+  mic: "https://media.base44.com/images/public/6a1ddd138b78b98189ac6e3a/a0ad77a52_generated_532a215a.png",
+  desk: "https://media.base44.com/images/public/6a1ddd138b78b98189ac6e3a/fe46ecbfb_generated_9d8f0ead.png",
+  press: "https://media.base44.com/images/public/6a1ddd138b78b98189ac6e3a/d84621a8f_generated_f30194c8.png",
+};
+
+const chapters = [
+  {
+    id: "01",
+    title: "The Landscape",
+    subtitle: "Understanding the modern sports media ecosystem",
+    desc: "Map the entire industry—from legacy broadcasters to digital-first platforms. Know who's hiring, what they need, and where the gaps are.",
+    image: IMAGES.press,
+  },
+  {
+    id: "02",
+    title: "The Art of the Interview",
+    subtitle: "Getting the story others miss",
+    desc: "Master the techniques that separate press-conference parrots from elite storytellers. Build rapport, ask better questions, own the room.",
+    image: IMAGES.mic,
+  },
+  {
+    id: "03",
+    title: "Navigating the Press Box",
+    subtitle: "From credentials to credibility",
+    desc: "Learn the unwritten rules of access, deadlines, and press-box politics. Your guide to surviving game day at any level.",
+    image: IMAGES.desk,
+  },
+  {
+    id: "04",
+    title: "The Digital Playmaker",
+    subtitle: "Building your personal brand in sports media",
+    desc: "Social strategy, content creation, and audience building—the modern playbook for getting noticed by the right people.",
+    image: IMAGES.tunnel,
+  },
+];
+
+function ChapterCard({ chapter, index }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.15, duration: 0.7 }}
+      className="group relative min-w-[300px] md:min-w-[380px] flex-shrink-0 border border-border/30 overflow-hidden"
+    >
+      {/* Image */}
+      <div className="relative h-48 md:h-56 overflow-hidden">
+        <img
+          src={chapter.image}
+          alt={chapter.title}
+          className="w-full h-full object-cover filter blur-[2px] group-hover:blur-0 transition-all duration-700 scale-105 group-hover:scale-100"
+        />
+        <div className="absolute inset-0 bg-background/60 group-hover:bg-background/30 transition-all duration-700" />
+        <div className="absolute top-4 left-4">
+          <span className="font-mono text-[10px] tracking-[0.2em] text-primary">
+            CH.{chapter.id}
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-6 h-px bg-primary" />
+          <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/50 uppercase">
+            Module {chapter.id}
+          </span>
+        </div>
+        <h3 className="font-heading font-bold text-lg uppercase tracking-wide text-foreground mb-1">
+          {chapter.title}
+        </h3>
+        <p className="font-mono text-[11px] tracking-wider text-primary/80 mb-3">
+          {chapter.subtitle}
+        </p>
+        <p className="font-body text-sm text-muted-foreground leading-relaxed">
+          {chapter.desc}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function ScoutingReport() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  return (
+    <section id="chapters" ref={sectionRef} className="snap-section min-h-screen flex flex-col justify-center py-20 md:py-32">
+      {/* Section header */}
+      <div className="px-6 md:px-12 lg:px-16 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center gap-4 mb-6">
+            <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/50">
+              SECTION—002
+            </span>
+            <div className="h-px flex-1 bg-border/20 max-w-32" />
+          </div>
+          <h2 className="font-display text-4xl md:text-6xl lg:text-7xl uppercase tracking-tight text-foreground">
+            The Scouting<br />
+            <span className="text-muted-foreground/40">Report</span>
+          </h2>
+          <p className="font-body text-base md:text-lg text-muted-foreground mt-4 max-w-xl leading-relaxed">
+            Every chapter is a strategic breakdown of the skills, connections, and insider knowledge you need to break into sports media.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Horizontal scroll cards */}
+      <div className="overflow-x-auto pb-6 no-scrollbar">
+        <div className="flex gap-4 md:gap-6 px-6 md:px-12 lg:px-16">
+          {chapters.map((chapter, i) => (
+            <ChapterCard key={chapter.id} chapter={chapter} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,80 @@
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+
+const TUNNEL_IMG = "https://media.base44.com/images/public/6a1ddd138b78b98189ac6e3a/50dd09cb9_generated_de7372fe.png";
+
+const stats = [
+  { label: "YEARS IN INDUSTRY", value: "15+" },
+  { label: "MEDIA PROFESSIONALS MENTORED", value: "200+" },
+  { label: "PLATFORMS COVERED", value: "BROADCAST · DIGITAL · PRINT" },
+];
+
+export default function AuthorSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section id="author" ref={ref} className="snap-section min-h-screen relative flex items-center">
+      {/* Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={TUNNEL_IMG}
+          alt="Stadium tunnel atmosphere"
+          className="w-full h-full object-cover opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/70" />
+      </div>
+
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl"
+        >
+          <div className="flex items-center gap-4 mb-8">
+            <span className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/50">
+              SECTION—003
+            </span>
+            <div className="h-px flex-1 bg-border/20 max-w-32" />
+          </div>
+
+          <h2 className="font-display text-4xl md:text-6xl uppercase tracking-tight text-foreground mb-4">
+            The Author
+          </h2>
+          <p className="font-display text-xl md:text-3xl uppercase tracking-[0.15em] text-primary mb-6">
+            Daniel Alston
+          </p>
+          <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+            Written by someone who's been in the tunnel, behind the cameras, and inside the production truck. 
+            This book distils over a decade of frontline experience into an actionable blueprint for the next generation 
+            of sports media professionals.
+          </p>
+          <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed mb-12 max-w-2xl">
+            From securing that first press pass to navigating the politics of a busy newsroom, 
+            every chapter is drawn from real-world experience—not theory.
+          </p>
+
+          {/* Stats bar */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-border/30 pt-8">
+            {stats.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.3 + i * 0.15, duration: 0.6 }}
+              >
+                <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground/40 mb-2">
+                  {stat.label}
+                </p>
+                <p className="font-heading font-bold text-lg md:text-xl text-foreground tracking-wide">
+                  {stat.value}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,31 @@
+import React from 'react';
+
+const navItems = [
+  { label: "DRAFT DATE", position: "top-left" },
+  { label: "THE AUTHOR", position: "top-right" },
+  { label: "THE CHAPTERS", position: "bottom-left" },
+  { label: "JOIN THE ROSTER", position: "bottom-right" },
+];
+
+const positionClasses = {
+  "top-left": "top-4 left-4 md:top-8 md:left-8",
+  "top-right": "top-4 right-4 md:top-8 md:right-8",
+  "bottom-left": "bottom-4 left-4 md:bottom-8 md:left-8",
+  "bottom-right": "bottom-4 right-4 md:bottom-8 md:right-8",
+};
+
+export default function CornerNav({ onNavigate }) {
+  return (
+    <>
+      {navItems.map((item) => (
+        <button
+          key={item.label}
+          onClick={() => onNavigate(item.label)}
+          className={`fixed ${positionClasses[item.position]} z-50 font-mono text-[10px] md:text-[11px] tracking-[0.2em] text-muted-foreground/50 hover:text-primary transition-colors duration-300 cursor-pointer hidden md:block`}
+        >
+          [{item.label}]
+        </button>
+      ))}
+    </>
+  );
+}
