@@ -1,7 +1,20 @@
-<div class="iframe-container">
-<iframe 
-    src="https://thepresspass.base44.app/"
-    title="My frame"
-    loading="lazy">
-</iframe>
-</div>
+.iframe-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #ddd;
+    border: solid 0px #acacac;
+    padding-top: 56.25%; /* Default 16:9 aspect ratio */
+    /* padding-top: 75%; /* ratio-4-3 - Classic videos, old TVs */
+    /* padding-top: 100%; /* ratio-1-1 - Square (Instagram, etc.) */
+    /* padding-top: 42.86%;  /* ratio-21-9 - Ultra-wide / Cinema */
+}
+
+.iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
